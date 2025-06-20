@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiteAnalyzer PRO - Análise Completa de Sites</title>
+    <meta name="description" content="Ferramenta profissional para análise de performance, SEO, acessibilidade e estrutura de sites">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg">
+            <div class="container mx-auto px-4 py-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <i class="fas fa-chart-line text-3xl mr-3"></i>
+                        <div>
+                            <h1 class="text-2xl md:text-3xl font-bold">SiteAnalyzer PRO</h1>
+                            <p class="text-sm opacity-90">Análise completa em tempo real</p>
+                        </div>
+                    </div>
+                    <nav class="flex space-x-4">
+                        <a href="#features" class="px-3 py-2 rounded-lg hover:bg-white/10 transition">Recursos</a>
+                        <a href="#how-it-works" class="px-3 py-2 rounded-lg hover:bg-white/10 transition">Como Funciona</a>
+                        <a href="#faq" class="px-3 py-2 rounded-lg hover:bg-white/10 transition">FAQ</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <section class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Analise seu site como um profissional</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+                    Obtenha insights detalhados sobre performance, SEO, acessibilidade e muito mais em poucos segundos
+                </p>
+                
+                <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-md p-6 mb-8">
+                    <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                        <div class="relative flex-grow">
+                            <i class="fas fa-globe absolute left-3 top-3 text-gray-400"></i>
+                            <input 
+                                type="text" 
+                                id="url-input" 
+                                placeholder="https://seusite.com" 
+                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                                aria-label="Digite a URL do site para análise"
+                            >
+                        </div>
+                        <button 
+                            id="analyze-btn"
+                            class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition flex items-center justify-center"
+                            aria-label="Analisar site"
+                        >
+                            <i class="fas fa-search mr-2"></i> Analisar Agora
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-500 text-left">
+                        <i class="fas fa-info-circle mr-1"></i> Insira a URL completa (incluindo https://) do site que deseja analisar
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 text-center">
+                        <i class="fas fa-bolt text-yellow-500 text-2xl mb-2"></i>
+                        <p class="font-medium">Análise Rápida</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 text-center">
+                        <i class="fas fa-chart-pie text-blue-500 text-2xl mb-2"></i>
+                        <p class="font-medium">Relatórios Detalhados</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 text-center">
+                        <i class="fas fa-mobile-alt text-purple-500 text-2xl mb-2"></i>
+                        <p class="font-medium">Teste Mobile</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 text-center">
+                        <i class="fas fa-lightbulb text-green-500 text-2xl mb-2"></i>
+                        <p class="font-medium">Sugestões Inteligentes</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="loading-section" class="hidden max-w-2xl mx-auto">
+                <div class="bg-white rounded-xl shadow-md p-8 text-center">
+                    <div class="flex justify-center mb-6">
+                        <div class="relative">
+                            <i class="fas fa-chart-line text-5xl text-indigo-500 pulse"></i>
+                            <div class="absolute -inset-4 border-4 border-indigo-200 rounded-full animate-ping opacity-75"></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Analisando seu site...</h3>
+                    <p class="text-gray-600 mb-6">Estamos verificando todos os aspectos do seu site para fornecer um relatório completo.</p>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                        <div id="loading-bar" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2.5 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <p id="loading-status" class="text-sm text-gray-500">Iniciando análise...</p>
+                </div>
+            </section>
+
+            <section id="results-section" class="hidden">
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-chart-bar text-indigo-500 mr-2"></i> Resultados da Análise
+                    </h2>
+                    
+                    <div class="flex flex-col lg:flex-row gap-8">
+                        <div class="lg:w-1/3">
+                            <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-6 h-full">
+                                <h3 class="text-lg font-semibold mb-4 text-gray-800">Pontuação Geral</h3>
+                                <div class="flex flex-col items-center">
+                                    <div class="relative w-40 h-40 mb-6">
+                                        <svg class="w-full h-full" viewBox="0 0 100 100">
+                                            <circle cx="50" cy="50" r="45" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+                                            <circle id="score-circle" cx="50" cy="50" r="45" fill="none" stroke="url(#gradient)" stroke-width="8" stroke-dasharray="283" stroke-dashoffset="283" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+                                            <defs>
+                                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                    <stop offset="0%" stop-color="#4f46e5" />
+                                                    <stop offset="100%" stop-color="#7c3aed" />
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                        <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                            <span id="score-value" class="text-4xl font-bold text-gray-800">0</span>
+                                            <span class="text-gray-500 text-sm">de 100</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-full">
+                                        <p class="text-sm text-gray-600 mb-4 text-center">
+                                            <span id="score-feedback"></span>
+                                        </p>
+                                        <button id="save-report-btn" class="w-full py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition flex items-center justify-center">
+                                            <i class="fas fa-download mr-2"></i> Salvar Relatório
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="lg:w-2/3">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white border border-gray-100 rounded-lg p-4 shadow-sm">
+                                    <div class="flex items-center mb-3">
+                                        <div class="p-2 bg-blue-100 rounded-lg mr-3">
+                                            <i class="fas fa-sitemap text-blue-500"></i>
+                                        </div>
+                                        <h3 class="font-semibold">Estrutura</h3>
+                                    </div>
+                                    <div class="mb-2 flex justify-between items-center">
+                                        <span class="text-sm text-gray-600">Pontuação:</span>
+                                        <span id="structure-score" class="font-medium">0/100</span>
+                                    </div>
+                                    <div class="progress-bar h-2 mb-4">
+                                        <div id="structure-progress" class="progress-fill bg-blue-500" style="width: 0%"></div>
+                                    </div>
+                                    <button class="text-sm text-blue-500 hover:text-blue-700 flex items-center">
+                                        <i class="fas fa-chevron-right mr-1 text-xs"></i> Ver detalhes
+                                    </button>
+                                </div>
+                                
+                                <div class="bg-white border border-gray-100 rounded-lg p-4 shadow-sm">
+                                    <div class="flex items-center mb-3">
+                                        <div class="p-2 bg-green-100 rounded-lg mr-3">
+                                            <i class="fas fa-search text-green-500"></i>
+                                        </div>
+                                        <h3 class="font-semibold">SEO</h3>
+                                    </div>
+                                    <div class="mb-2 flex justify-between items-center">
+                                        <span class="text-sm text-gray-600">Pontuação:</span>
+                                        <span id="seo-score" class="font-medium">0/100</span>
+                                    </div>
+                                    <div class="progress-bar h-2 mb-4">
+                                        <div id="seo-progress" class="progress-fill bg-green-500" style="width: 0%"></div>
+                                    </div>
+                                    <button class="text-sm text-green-500 hover:text-green-700 flex items-center">
+                                        <i class="fas fa-chevron-right mr-1 text-xs"></i> Ver detalhes
+                                    </button>
+                                </div>
+                                
+                                <div class="bg-white border border-gray-100 rounded-lg p-4 shadow-sm">
+                                    <div class="flex items-center mb-3">
+                                        <div class="p-2 bg-purple-100 rounded-lg mr-3">
+                                            <i class="fas fa-tachometer-alt text-purple-500"></i>
+                                        </div>
+                                        <h3 class="font-semibold">Performance</h3>
+                                    </div>
+                                    <div class="mb-2 flex justify-between items-center">
+                                        <span class="text-sm text-gray-600">Pontuação:</span>
+                                        <span id="performance-score" class="font-medium">0/100</span>
+                                    </div>
+                                    <div class="progress-bar h-2 mb-4">
+                                        <div id="performance-progress" class="progress-fill bg-purple-500" style="width: 0%"></div>
+                                    </div>
+                                    <button class="text-sm text-purple-500 hover:text-purple-700 flex items-center">
+                                        <i class="fas fa-chevron-right mr-1 text-xs"></i> Ver detalhes
+                                    </button>
+                                </div>
+                                
+                                <div class="bg-white border border-gray-100 rounded-lg p-4 shadow-sm">
+                                    <div class="flex items-center mb-3">
+                                        <div class="p-2 bg-yellow-100 rounded-lg mr-3">
+                                            <i class="fas fa-universal-access text-yellow-500"></i>
+                                        </div>
+                                        <h3 class="font-semibold">Acessibilidade</h3>
+                                    </div>
+                                    <div class="mb-2 flex justify-between items-center">
+                                        <span class="text-sm text-gray-600">Pontuação:</span>
+                                        <span id="accessibility-score" class="font-medium">0/100</span>
+                                    </div>
+                                    <div class="progress-bar h-2 mb-4">
+                                        <div id="accessibility-progress" class="progress-fill bg-yellow-500" style="width: 0%"></div>
+                                    </div>
+                                    <button class="text-sm text-yellow-500 hover:text-yellow-700 flex items-center">
+                                        <i class="fas fa-chevron-right mr-1 text-xs"></i> Ver detalhes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-tools text-red-500 mr-2"></i> Correções Prioritárias
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quick-fixes">
+                    </div>
+                    
+                    <div class="mt-6">
+                        <button id="show-all-issues" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
+                            <i class="fas fa-chevron-down mr-1"></i> Mostrar todas as recomendações
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-search-plus text-blue-500 mr-2"></i> Análise Detalhada
+                    </h2>
+                    
+                    <div class="border-b border-gray-200 mb-6">
+                        <nav class="flex flex-wrap -mb-px">
+                            <button class="tab-button active mr-8 py-4 px-1 border-b-2 font-medium text-sm border-indigo-500 text-indigo-600 flex items-center" data-tab="structure">
+                                <i class="fas fa-sitemap mr-2"></i> Estrutura
+                            </button>
+                            <button class="tab-button mr-8 py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 flex items-center" data-tab="seo">
+                                <i class="fas fa-search mr-2"></i> SEO
+                            </button>
+                            <button class="tab-button mr-8 py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 flex items-center" data-tab="performance">
+                                <i class="fas fa-tachometer-alt mr-2"></i> Performance
+                            </button>
+                            <button class="tab-button mr-8 py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 flex items-center" data-tab="accessibility">
+                                <i class="fas fa-universal-access mr-2"></i> Acessibilidade
+                            </button>
+                            <button class="tab-button py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 flex items-center" data-tab="security">
+                                <i class="fas fa-shield-alt mr-2"></i> Segurança
+                            </button>
+                        </nav>
+                    </div>
+                    
+                    <div id="tab-contents">
+                        <div id="structure-tab" class="tab-content active">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            </div>
+                        </div>
+                        
+                        <div id="seo-tab" class="tab-content hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            </div>
+                        </div>
+                        
+                        <div id="performance-tab" class="tab-content hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            </div>
+                        </div>
+                        
+                        <div id="accessibility-tab" class="tab-content hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            </div>
+                        </div>
+                        
+                        <div id="security-tab" class="tab-content hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-chart-line text-purple-500 mr-2"></i> Comparação Histórica
+                    </h2>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <p class="text-gray-600 mb-4">Esta é a primeira análise deste site. Realize novas análise periodicamente para acompanhar a evolução.</p>
+                        <canvas id="history-chart" height="300"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-trophy text-yellow-500 mr-2"></i> Comparação com Concorrentes
+                    </h2>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/2">
+                            <h3 class="text-lg font-semibold mb-4">Adicione sites concorrentes para comparar</h3>
+                            <div class="flex mb-4">
+                                <input type="text" id="competitor-url" placeholder="https://concorrente.com" class="flex-grow px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                                <button id="add-competitor" class="px-4 py-2 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700">Adicionar</button>
+                            </div>
+                            <ul id="competitors-list" class="space-y-2">
+                            </ul>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="bg-gray-50 rounded-lg p-4 h-full">
+                                <p class="text-gray-600">Adicione pelo menos um concorrente para ver a comparação</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="py-12">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Recursos Avançados</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                        <div class="text-indigo-500 text-3xl mb-4">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Monitoramento Contínuo</h3>
+                        <p class="text-gray-600 mb-4">Receba alertas quando seu site apresentar problemas de performance ou disponibilidade.</p>
+                        <button class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
+                            Configurar monitoramento <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                        <div class="text-red-500 text-3xl mb-4">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Auditoria de Segurança</h3>
+                        <p class="text-gray-600 mb-4">Identifique vulnerabilidades e receba recomendações para proteger seu site contra ameaças.</p>
+                        <button class="text-red-600 hover:text-red-800 font-medium flex items-center">
+                            Verificar segurança <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+                        <div class="text-blue-500 text-3xl mb-4">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Otimização Mobile</h3>
+                        <p class="text-gray-600 mb-4">Teste e melhore a experiência do seu site em smartphones e tablets.</p>
+                        <button class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                            Testar versão mobile <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-gray-800 text-white py-12">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-chart-line mr-2"></i> SiteAnalyzer PRO
+                        </h3>
+                        <p class="text-gray-400">Sua ferramenta completa para análise e otimização de sites.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Recursos</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Análise de SEO</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Teste de Performance</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Verificação de Acessibilidade</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Monitoramento Contínuo</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Ajuda</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Documentação</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Tutoriais</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Newsletter</h4>
+                        <p class="text-gray-400 mb-2">Receba dicas e atualizações por email</p>
+                        <div class="flex">
+                            <input type="email" placeholder="Seu email" class="px-4 py-2 rounded-l-lg w-full text-gray-800">
+                            <button class="bg-indigo-600 px-4 py-2 rounded-r-lg hover:bg-indigo-700">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                    <p>© 2025 SiteAnalyzer PRO. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-xl font-bold"></h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="modal-content" class="mb-4">
+            </div>
+            <div class="flex justify-end">
+                <button id="modal-close-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
